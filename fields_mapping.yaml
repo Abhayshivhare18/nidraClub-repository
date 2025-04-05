@@ -1,0 +1,58 @@
+
+studyId : "studyId"
+activeWebhook: "activeWebhook"
+date: "date"
+deviceId: "deviceId"
+
+#epochAggregation
+epochRecordingStartTimeUTC: "nightlyStatistics.epochAggregation.recordingStartTimeUTC"
+epochRecordingEndTimeUTC : "nightlyStatistics.epochAggregation.recordingEndTimeUTC"
+epochRecordingStartTimeLocal : "nightlyStatistics.epochAggregation.recordingStartTimeLocal"
+epochRecordingEndTimeLocal: "nightlyStatistics.epochAggregation.recordingEndTimeLocal"
+epochTotalRecordingTime: "nightlyStatistics.epochAggregation.totalRecordingTime"
+epochGoodSignalDuration: "nightlyStatistics.epochAggregation.goodSignalDuration"
+epochTotalBreathingTime: "nightlyStatistics.epochAggregation.totalBreathingTime"
+epochTimezone: "nightlyStatistics.epochAggregation.timezone"
+
+
+#sleepAggregations
+sleepAggregationsSleepStartTime: "nightlyStatistics.sleepAggregations.sleepStartTime"
+sleepAggregationsSleepEndTime : "nightlyStatistics.sleepAggregations.sleepEndTime"
+sleepAggregationsTotalBedTime : "nightlyStatistics.sleepAggregations.totalBedTime"
+sleepAggregationsTotalSleepTime: "nightlyStatistics.sleepAggregations.totalSleepTime"
+sleepAggregationsAwakeningCount: "nightlyStatistics.sleepAggregations.awakeningCount"
+sleepAggregationsAverageAwakening : "nightlyStatistics.sleepAggregations.averageAwakening"
+sleepAggregationsEfficiency: "nightlyStatistics.sleepAggregations.sleepEfficiency"
+sleepAggregationsWakeAfterSleepOnset: "nightlyStatistics.sleepAggregations.wakeAfterSleepOnset"
+sleepAggregationsSleepOnsetLatency: "nightlyStatistics.sleepAggregations.sleepOnsetLatency"
+sleepAggregationsWakeUpLatency : "nightlyStatistics.sleepAggregations.wakeUpLatency"
+sleepAggregationsOutOfBedCount : "nightlyStatistics.sleepAggregations.outOfBedCount"
+sleepAggregationsIrregularityIndex : "nightlyStatistics.sleepAggregations.irregularityIndex"
+sleepAwakeDataset: "nightlyStatistics.sleepAggregations.sleepAwakeDataset"
+sleepStagesDataset: "nightlyStatistics.sleepAggregations.sleepStagesDataset"
+
+
+
+#Heart
+lowerHeartPercentile: "nightlyStatistics.heartRateAggregations.lowerPercentile"
+upperHeartPercentile: "nightlyStatistics.heartRateAggregations.upperPercentile"
+medianHeartPercentile: "nightlyStatistics.heartRateAggregations.medianPercentile"
+heartRateAggregationsMin : "nightlyStatistics.heartRateAggregations.min"
+heartRateAggregationsMean : "nightlyStatistics.heartRateAggregations.mean"
+heartRateAggregationsMax : "nightlyStatistics.heartRateAggregations.max"
+heartRateDataset: "nightlyStatistics.heartRateAggregations.heartRateDataset"
+
+#Breath
+lowerBreathingPercentile: "nightlyStatistics.breathingAggregations.lowerPercentile"
+upperBreathingPercentile: "nightlyStatistics.breathingAggregations.upperPercentile"
+medianBreathingPercentile: "nightlyStatistics.breathingAggregations.medianPercentile"
+breathingAggregationsMin : "nightlyStatistics.breathingAggregations.min"
+breathingAggregationsMean: "nightlyStatistics.breathingAggregations.mean"
+breathingAggregationsMax : "nightlyStatistics.breathingAggregationsMax"
+breathingRateDataset: "nightlyStatistics.breathingAggregations.breathingRateDataset"
+
+
+
+
+irregularityIndex: "nightlyStatistics.sleepAggregations.irregularityIndex"
+

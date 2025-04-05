@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    /* Header Styling */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #3498db;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    #fetchLogs {
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: white;
+      color: #3498db;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    #fetchLogs:disabled {
+      background-color: #ddd;
+      color: #666;
+      cursor: not-allowed;
+    }
+
+    /* Loader */
+    .loader-container {
+      display: none;
+      text-align: center;
+      margin: 20px;
+    }
+
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+    }
+
+    #loadingMessage {
+      font-size: 18px;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Table Styles */
+    .table-container {
+      width: 80%;
+      margin: 20px auto;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #3498db;
+      color: white;
+    }
+
+    /* Action Button */
+    .action-btn {
+      padding: 5px 10px;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .action-btn:hover {
+      background-color: #27ae60;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header Section -->
+  <div class="header">
+    <h1>📊 Dashboard</h1>
+    <button id="fetchLogs">Fetch Study Logs</button>
+  </div>
+
+  <!-- Loader -->
+  <div class="loader-container" id="loaderContainer">
+    <div class="loader"></div>
+    <p id="loadingMessage">Fetching data, please wait...</p>
+  </div>
+
+  <!-- Data Table -->
+  <div class="table-container">
+    <table id="studyLogsTable">
+      <thead>
+        <tr>
+          <th>Device ID</th>
+          <th>Recording Date</th>
+          <th>Start Time</th>
+          <th>Stop Time</th>
+          <th>RID</th>
+          <th>Recording Date Epoch</th>
+          <th>Timezone</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    document.getElementById("fetchLogs").addEventListener("click", async function () {
+      const token = localStorage.getItem("access_token"); // Get token from localStorage
+      const fetchLogsButton = document.getElementById("fetchLogs");
+      const loaderContainer = document.getElementById("loaderContainer");
+
+      if (!token) {
+        alert("No token found, please login first.");
+        return;
+      }
+
+      // Show loader and disable button
+      fetchLogsButton.disabled = true;
+      loaderContainer.style.display = "block";
+
+      try {
+        const response = await fetch("http://localhost:8000/study-logs", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ token })
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch study logs");
+
+        const data = await response.json();
+        displayStudyLogs(data); // Call function to display logs
+      } catch (error) {
+        console.error("Error fetching study logs:", error);
+        alert("Failed to load data");
+      } finally {
+        // Hide loader and enable button
+        loaderContainer.style.display = "none";
+        fetchLogsButton.disabled = false;
+      }
+    });
+
+    function displayStudyLogs(data) {
+      const tableBody = document.querySelector("#studyLogsTable tbody");
+      tableBody.innerHTML = ""; // Clear previous data
+
+      Object.keys(data.data).forEach(deviceId => {
+        const logs = data.data[deviceId];
+
+        logs.forEach(log => {
+          const row = document.createElement("tr");
+
+          row.innerHTML = `
+                    <td>${log.device_id}</td>
+                    <td>${log.recording_date}</td>
+                    <td>${log.recording_start_time}</td>
+                    <td>${log.recording_stop_time}</td>
+                    <td>${log.rid}</td>
+                    <td>${log.recording_date_epoch}</td>
+                    <td>${log.timezone}</td>
+                    <td><button class="action-btn" data-device-id="${log.device_id}" data-recording-date="${log.recording_date_epoch}">View Report</button></td>
+                `;
+
+          tableBody.appendChild(row);
+        });
+      });
+
+
+     document.querySelectorAll(".action-btn").forEach(button => {
+        button.addEventListener("click", async function () {
+          const token = localStorage.getItem("access_token"); // Get token from local storage
+          if (!token) {
+            alert("No token found, please log in.");
+            return;
+          }
+
+          const deviceId = this.getAttribute("data-device-id");
+          const recordingDate = this.getAttribute("data-recording-date");
+
+          // Disable button and show loading indicator
+          this.textContent = "Generating...";
+          this.disabled = true;
+
+          try {
+            const response = await fetch("http://localhost:8000/nightly-data", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                device_id: parseInt(deviceId, 10),
+                recording_date: parseInt(recordingDate, 10),
+                token: token
+              })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+              alert("Report generated successfully!");
+              console.log(result);
+            } else {
+              alert("Error generating report: " + (result.detail || "Unknown error"));
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("Failed to generate report.");
+          } finally {
+            // Re-enable button after API call completes
+            this.textContent = "Generate Report";
+            this.disabled = false;
+          }
+        });
+      });
+    } function displayStudyLogs(data) {
+        const tableBody = document.querySelector("#studyLogsTable tbody");
+        tableBody.innerHTML = ""; // Clear previous data
+
+        Object.keys(data.data).forEach(deviceId => {
+          const logs = data.data[deviceId];
+
+          logs.forEach(log => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${log.device_id}</td>
+                <td>${log.recording_date}</td>
+                <td>${log.recording_start_time}</td>
+                <td>${log.recording_stop_time}</td>
+                <td>${log.rid}</td>
+                <td>${log.recording_date_epoch}</td>
+                <td>${log.timezone}</td>
+                <td><button class="action-btn" data-device-id="${log.device_id}" data-recording-date="${log.recording_date_epoch}">view Report</button></td>
+            `;
+
+            tableBody.appendChild(row);
+          });
+        });
+
+        // Attach event listeners to all buttons after rows are created
+        document.querySelectorAll(".action-btn").forEach(button => {
+          button.addEventListener("click", async function () {
+            const token = localStorage.getItem("access_token"); // Get token from local storage
+           
+            const deviceId = this.getAttribute("data-device-id");
+            const recordingDate = this.getAttribute("data-recording-date");
+
+            // Disable button and show loading indicator
+            this.textContent = "Generating...";
+            this.disabled = true;
+
+            try {
+              const response = await fetch("http://localhost:8000/nightly-data", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  device_id: parseInt(deviceId, 10),
+                  recording_date: parseInt(recordingDate, 10),
+                  token: token
+                })
+              });
+              console.log("Response received:", response);
+               // **Ensure response is properly received and parsed**
+              if (!response.ok) {
+               throw new Error("HTTP error! Status: " + response.status);
+              }
+          
+           // Parse response JSON
+        
+              // **Ensure redirection happens only after API call is handled**
+           
+               // window.location.href = "nidraClubHtml.html";
+               window.open("nidraClubHtml.html", "_blank");
+             // Optional delay for debugging
+
+            } catch (error) {
+              console.error("Error:", error);
+              alert("Failed to generate report: " + error.message);
+            } finally {
+              // Re-enable button after API call completes
+              this.textContent = "Generate Report";
+              this.disabled = false;
+            }
+          });
+        });
+      }
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+   
+
+</body>
+
+</html>

@@ -1,0 +1,233 @@
+.container {
+  width: 50%;
+  margin: auto;
+  text-align: left;
+}
+
+h2 {
+  color: blue;
+  text-align: center;
+}
+
+h3 {
+  color: blue;
+}
+
+h4 {
+  color: blue;
+}
+
+/* ✅ Center Circular Charts */
+.chart-container {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* ✅ Square Border Around Each Chart */
+.chart-border {
+  width: 170px;
+  height: 170px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+/* ✅ Ensure Charts Fit Properly */
+canvas {
+  width: 120px !important;
+  height: 120px !important;
+}
+
+#sleepChart{
+  width: 100% !important;
+    height :200px !important;
+    margin-top: 20px;
+}
+
+
+
+#heartRateChart {
+  width: 100% !important;
+  height: 300px !important;
+  margin-top: 10px;
+
+}
+
+#breathRateChart {
+  width: 100% !important;
+  height: 300px !important;
+  margin-top: 10px;
+
+}
+
+#hypnogramChart {
+  width: 100% !important;
+  height: 300px !important;
+  margin-top: 10px;
+
+}
+
+
+/* ✅ User Information Box */
+.user-box {
+  border: 2px solid blue;
+  padding: 15px;
+  width: 100%;
+  text-align: left;
+  margin-top: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+
+
+#sessionTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f9f9f9;
+}
+
+#sessionTable th,
+#sessionTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+#sessionTable th {
+  background-color: #e3f2fd;
+}
+
+#sessionTable2 {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+}
+
+#sessionTable2 th,
+#sessionTable2 td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+#sessionTable2 th {
+  background-color: #e3f2fd;
+}
+
+
+
+
+#sessionTable3 {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+}
+
+#sessionTable3 th,
+#sessionTable3 td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+#sessionTable3 th {
+  background-color: #e3f2fd;
+}
+
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  /* ✅ Align left and right */
+  width: 100%;
+  padding: 10px 0;
+}
+
+.left-text,
+.right-text {
+  color: blue;
+  /* ✅ Blue color */
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.sleep-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.chart-box {
+  width: 200px;
+  text-align: center;
+}
+
+
+
+.efficiency-box {
+  text-align: center;
+  width: 200px;
+ 
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+#sleepEfficiencyValue{
+  font-size: 220%;
+}
+
+
+#respiratoryTable {
+  width: 60%;
+  border-collapse: collapse;
+  margin: 10px auto;
+  /* Centers the table */
+  background-color: #f9f9f9;
+}
+
+#respiratoryTable th,
+#respiratoryTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#respiratoryChart {
+    width: 100% !important;
+      height: 150px !important;
+}
+#respiratoryTable th{
+ background-color: #e3f2fd;
+}
+
+
+
+.small-text {
+  font-size: 12px;
+  /* Adjust size as needed */
+ 
+  /* Optional: change text color */
+}
+
+
+#chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;  /* Adjust height to fit */
+    width: 100%;
+}
+
+#chart-container canvas {
+  width: 600px !important;
+  height: 250px !important;
+}
+
