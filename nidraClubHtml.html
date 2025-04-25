@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nidra Report</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+  
+
+</head>
+
+<body>
+  <div class="header">
+ 
+    <button id="backButon">Back</button>
+  </div>
+  <div class="container">
+    <h2>Nidra Report</h2>
+             
+   
+    <!-- ✅ User Information Section -->
+    <section id="user-info">
+      <div class="user-box">
+        <h3>User Information</h3>
+        <table id="userTable"></table>
+      </div>
+    </section>
+
+    <section id="user-info">
+      <div class="user-box">
+        <h3>Device Information</h3>
+        <table id="deviceTable"></table>
+      </div>
+    </section>
+
+    <!-- ✅ Nidra Summary Section -->
+    <section id="nidra-summary">
+      <h3>Nidra Club Summary</h3>
+      <p >Congratulations on completing your 1-session journey with the Nidra Club!</p>
+    
+      <p>This report provides a personalized summary of your wellbeing progress, highlighting key improvements
+      and insights gained throughout your experience.</p>
+ 
+      <p>Here’s a quick snapshot of your results:</p>
+         
+
+      <!-- ✅ Circular Charts with Square Borders -->
+      <div class="chart-container">
+        <div class="chart-box">
+          <div class="chart-border">
+            <p>Sleep Scope</p>
+            <canvas id="sleepScore"></canvas>
+          </div>
+        </div>
+        <div class="chart-box">
+          <div class="chart-border">
+            <p>Heart Score</p>
+            <canvas id="HeartScore"></canvas>
+          </div>
+        </div>
+        <div class="chart-box">
+          <div class="chart-border">
+            <p>Breathing Score</p>
+            <canvas id="BreathingScore"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ✅ Explanation & References Section -->
+    <section id="explanationReference-summary">
+     <p>Your dedication to better wellbeing will lead to significant improvements, and we’re excited to share the
+    details of your progress</p>
+     <p>Let’s dive into your results in detail and see how the Nidra Club experience has transformed your health.
+</p>
+    </section>
+    <section>
+    <h3>Sleep Analysis</h3>
+    <p class="intro-text">
+      After completing the session(s), the following metrics and observations will summarize the overall impact of Nidra
+      Club on your sleep.
+    </p>
+    <h4>Session summary</h4>
+    <p class="intro-text">
+      After completing the session(s), the following metrics and observations will summarize the overall impact of Nidra
+      Club on your sleep.
+    </p>
+    </section>
+
+    <section id="session-summary">
+    <table  id="sessionTable"  >
+      <thead>
+        <tr>
+          <th>Session Date</th>
+          <th>Total Sleep Time (HH:MM)</th>
+          <th>Sleep Efficiency (%)</th>
+          <th>Sleep Onset Latency (min)</th>
+          <th>Wake After Sleep Onset (WASO) (min)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </section>
+
+      <!-- ✅ Actigram Graph -->
+      <section id="actigram">
+        <h3>Actigram</h3>
+        <p>The actigram below represents the asleep or awake stage throughout the night.</p>
+        <canvas id="sleepChart"></canvas>
+
+    <div class="sleep-stats">
+      <div class="chart-box">
+        <p>Total Sleep Time</p>
+        <canvas id="totalSleepChart"></canvas>
+       
+      </div>
+      <div class="efficiency-box">
+        <p>Sleep Efficiency</p>
+        <h3 id="sleepEfficiencyValue"></h3>
+      </div>
+    </div>
+
+      </section>
+
+ <!-- ✅ Remarks Section -->
+      <section id="remarks">
+        <h3>Remarks</h3>
+        <p id="remarksText">
+          Total Sleep Time (TST) refers to the actual duration a person spends asleep, excluding wakefulness during
+          the night, and is a critical factor in overall sleep quality and health [1]. Higher TST indicates better sleep
+          efficiency, which is essential for cognitive function, emotional regulation, and reducing the risk of chronic
+          conditions like cardiovascular disease and diabetes [2].</p>
+         <p></p> Sleep efficiency is the percentage of time spent asleep relative to the total time spent in bed, with higher
+          values indicating more consolidated and restorative sleep [1]. Poor sleep efficiency, often linked to insomnia
+          and sleep disorders.
+        </p>
+      </section>
+      
+      <!-- ✅ References Section -->
+      <section id="references">
+        <h3>References</h3>
+        <p id="referencesList" class="small-text">[1] Ohayon, Maurice et al. “National Sleep Foundation's sleep quality recommendations: first report.”
+        Sleep health vol. 3,1 (2017): 6-19. doi:10.1016/j.sleh.2016.11.006
+        [2] Hirshkowitz, Max et al. “National Sleep Foundation's sleep time duration recommendations: methodology and results
+        summary.”
+        Sleep health vol. 1,1 (2015): 40-43. doi:10.1016/j.sleh.2014.12.010</p>
+      </section>
+
+
+
+
+
+
+ <!---- new  start Udated portion---->     
+<!-- ✅ Sleep Stages Analysis -->
+<section id="sleepStages">
+  <h3>Sleep Stages Analysis  Abhay</h3>
+  <p>After completing the session(s), the following metrics and observations will summarize the overall impact of
+    Nidra Club on your sleep stages.</p>
+  <canvas id="hypnogramChart"></canvas>
+
+
+
+
+
+</section>
+<section>
+
+  <h3>Sleep Stages Summary</h3>
+  <p>The donut plot below summarizes the percentages of each sleep stage during the session.</p>
+<div id="chart-container">
+  <canvas id="sleepStageDonutChart"></canvas>
+</div>
+</section>
+
+
+<!-- ✅ Remarks Section -->
+<section id="remarks">
+  <h3>Remarks</h3>
+  <p id="remarksText">
+    Understanding sleep stages is essential for assessing overall sleep quality and health [3-4]. Each stage
+    plays a unique role in the restorative process:</p>
+  <p>• Awake: Normal wakefulness during the night is expected; however, these periods should remain minimal
+  to ensure restorative sleep.</p>
+  <p>• REM Sleep: REM (Rapid Eye Movement) sleep is critical for dreaming and memory consolidation. The
+  brain’s activity during this phase resembles that of wakefulness, which helps with learning and emotional
+  regulation.</p> 
+  <p>
+    • N1 (Light Sleep): This stage represents the transition from wakefulness to sleep, helping the body to relax
+    initially.
+  </p>
+  <p>
+    • N2 (Intermediate Sleep): In this phase, the body relaxes more deeply. Heart rate slows, body temperature
+    drops, and it becomes more challenging to awaken—factors that contribute to maintaining sleep continuity.
+  </p>
+  <p>• N3 (Deep Sleep / Slow-Wave Sleep): As the most restorative stage, deep sleep is vital for physical
+  recovery, growth, and immune function. During N3, the body repairs tissues, builds bone and muscle, and
+  strengthens the immune system, ensuring you wake up feeling refreshed and energetic.
+  </p>
+</section>
+
+<!-- ✅ References Section -->
+<section id="references">
+  <h3>References</h3>
+  <p id="referencesList" class="small-text">[3] Carskadon, Mary A., and William C. Dement. Normal human sleep: an overview.
+  Principles and practice of sleep medicine 4.1 (2005): 13-23.</p>
+  <p class="small-text">[4] Hirshkowitz, Max, et al. National Sleep Foundation’s sleep time duration recommendations: methodology and results
+  summary.
+  Sleep health 1.1 (2015): 40-43.</p>
+</section>
+
+
+
+
+<!---- new  end Udated portion---->
+
+
+
+<!-- ✅ heart-rate Analysis -->
+      <section id="heartRate-info">
+        <div class="heart-rate">
+          <h3>Heart Rate Analysis</h3>
+           <p>After completing the session(s), the following metrics and observations will summarize the overall impact of
+          Nidra Club on your heart health.</p>
+        </div>
+      </section>
+
+
+      <section id="session-summary">
+        <table id="sessionTable2">
+          <thead>
+            <tr>
+              <th>Session Date</th>
+             <th>Heart Rate Normal
+              [60-100 bpm]</th>
+              <th>Minimum Heart Rate
+              [90% of the time
+              above this value]</th>
+              <th>Maximum Heart Rate
+              [90% of the time
+              below this value]</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+
+      <!-- ✅ Heart Rate Trend Graph -->
+      <section id="heartRate-trend">
+        <h3>Heart Rate Trend</h3>
+       
+        <canvas id="heartRateChart"></canvas>
+      </section>
+
+
+      <section id="remarks">
+        <h3>Remarks</h3>
+        <p id="remarksText">
+        Resting Heart Rate (RHR) is the number of heartbeats per minute (bpm) while at rest. A normal RHR for
+        adults is 60–100 bpm, though athletes often have values below 60 bpm due to improved cardiac efficiency
+        [3].</p>
+       <p> Tachycardia (>100 bpm)
+        An RHR above 100 bpm may indicate dehydration, fever, anxiety, hyperthyroidism, anemia, or cardiac
+        arrhythmias such as atrial fibrillation (AF) or ventricular tachycardia (VT) [4]. In COPD patients, persistent
+        tachycardia can signal an exacerbation.</p>
+        <p>Bradycardia ('<'60 bpm) An RHR below 60 bpm can be linked to sick sinus syndrome (SSS), heart block (HB), atrioventricular
+          nodal block (AVNB), or medication effects (e.g., beta-blockers) [5]. Severe cases may indicate shock states or CNS
+          depression.
+        </p>
+      </section>
+      
+      <!-- ✅ References Section -->
+      <section id="references">
+        <h3>References</h3>
+        <p id="referencesList" class="small-text"> [3] Palatini, P, and S Julius. “Elevated heart rate: a major risk factor for cardiovascular disease.”
+        Clinical and experimental hypertension (New York, N.Y. : 1993) vol. 26,7-8 (2004): 637-44. doi:10.1081/ceh-200031959</p>
+        <p class="small-text">[4] Olshansky, Brian, and Renee M Sullivan. “Inappropriate sinus tachycardia.”
+        Journal of the American College of Cardiology vol. 61,8 (2013): 793-801. doi:10.1016/j.jacc.2012.07.074</p>
+        <p class="small-text">[5] D'Souza, Alicia et al. “Exercise training reduces resting heart rate via downregulation of the funny channel HCN4.”
+        Nature communications vol. 5 3775. 13 May. 2014, doi:10.1038/ncomms4775</p>
+      </section>
+
+
+
+      <section id="Breathingrate-info">
+        <div class="Breath-rate">
+          <h3>Breathing Rate Analysis</h3>
+          <p>168751:1573:19-02-2025 4
+          Breathing Rate Analysis
+          After completing the session(s), the following metrics and observations will summarize the overall
+          impact of Nidra Club on your breathing rate</p>
+        </div>
+      </section>
+      
+      
+      <section id="session-summary">
+        <table id="sessionTable3">
+          <thead>
+            <tr>
+              <th>Session Date</th>
+              <th>Breathing Rate Normal
+              [12-20 brpm]</th>
+              <th>Minimum Breathing Rate
+              [90% of the time
+              above this value]</th>
+              <th>Maximum Breathing Rate
+              [90% of the time
+              below this value]</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+      
+      
+      <!-- ✅ Heart Rate Trend Graph -->
+      <section id="breathRate-trend">
+        <h3>Breathing Rate Trend</h3>
+      
+        <canvas id="breathRateChart"></canvas>
+      </section>
+      
+      
+      <section id="remarks">
+        <h3>Remarks</h3>
+        <p id="remarksText">
+        Resting Breathing Rate (RBR) refers to the number of breaths per minute (brpm) while at rest, without
+        physical exertion or stress. A normal RBR for adults ranges from 12 to 20 brpm, though factors such as
+        age, sex, weight, and overall health can influence respiratory rates [6].</p>
+        <p>Tachypnea (>20 brpm)
+        An RBR above 20 brpm (tachypnea) may indicate acute illness, cardiovascular or pulmonary disorders,
+        fever, anxiety, or metabolic acidosis (e.g., diabetic ketoacidosis) [7]. In COPD patients, tachypnea,
+        especially when accompanied by shortness of breath, can signal an exacerbation requiring medical
+        attention [8].</p>
+       <p>Bradypnea (<"12 brpm) An RBR below 12 brpm (bradypnea) can be associated with neurological impairment, metabolic
+          disorders, respiratory depression from opioids or sedatives, sleep apnea, or underlying cardiac or pulmonary disease
+          [7]. In COPD patients, severe bradypnea may indicate declining lung function and a high risk of respiratory failure
+          [8]. </p>
+      </section>
+      
+      <!-- ✅ References Section -->
+      <section id="references">
+        <h3>References</h3>
+        <p id="referencesList" class="small-text">[6] Cretikos, Michelle A et al. “Respiratory rate: the neglected vital sign.”
+        The Medical journal of Australia vol. 188,11 (2008): 657-9. doi:10.5694/j.1326-5377.2008.tb01825.x
+        [7] Subbe, C P et al. “Effect of introducing the Modified Early Warning score on clinical outcomes, cardio-pulmonary
+        arrests and</p>
+        <p class="small-text">intensive care utilisation in acute medical admissions.” Anaesthesia vol. 58,8 (2003): 797-802.
+        doi:10.1046/j.1365-2044.2003.03258.x</p>
+        <p class="small-text">[8] Hogea, Stanca-Patricia et al. “Risk factors of chronic obstructive pulmonary disease exacerbations.”
+        The clinical respiratory journal vol. 14,3 (2020): 183-197. doi:10.1111/crj.13129</p>
+      </section>
+
+
+      <section id="Irregularities-info">
+        <div class="Irregularities">
+          <h3>Irregularities</h3>
+          <p>After completing the session(s), the following metrics and observations will summarize the overall
+          respiratory events per hour of sleep.</p>
+        </div>
+      </section>
+
+
+      <section id="respiratory-events">
+      <h3>Respiratory Events per Hour of Sleep</h3>
+      <canvas id="respiratoryChart"></canvas>
+      
+        <table id="respiratoryTable">
+          <thead>
+            <tr>
+              <th>Session Date</th>
+              <th>Respiratory Events/Hour</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+       
+      
+      <section>
+        <h3>Remarks</h3>
+        <p id="respiratoryRemarks">The displayed value corresponds to the number of respiratory events (e.g. breathing pauses) per hour of
+        sleep and is comparable to the AHI (Apnea-Hypopnea Index). The following severity classifications and
+        recommendations based on the AHI were established by the American Academy of Sleep Medicine (AASM)
+        and are commonly used in clinical practice [12]:</p>
+        <p>0-5: These values do not indicate sleep apnea. Without symptoms, no sleep therapy is needed.</p>
+        <p>5-15: These values could indicate mild sleep apnea. Without symptoms no therapy may be needed.
+        It is recommended to consult a doctor, especially if there are associated symptoms.</p>
+        <p>15-30: These values could indicate moderate sleep apnea. It is recommended to consult a doctor.
+        Therapy may be recommended, especially if there are associated symptoms.</p>
+        <p>30+: These values could indicate severe sleep apnea. It is recommended to consult a doctor.
+        Therapy is recommended</p>
+      </section>
+
+
+      <section id="references">
+        <h3>References</h3>
+        <p id="referencesList" class="small-text">[12] Flemons, W. W. et al. Sleep-related breathing disorders in adults: Recommendations for syndrome
+        definition and measurement techniques in clinical research Sleep, Volume 22, Issue 5, August 1999, Pages
+        667-689, https://doi.org/10.1093/sleep/22.5.669</p>
+        </p>
+      </section>
+
+      
+
+  </div>
+
+  <script src="nidraClubJavascript.js"></script>
+   <script>
+  document.getElementById("backButon").addEventListener("click", async function () {
+  window.location.href = "dashboard.html";
+  });
+</script>
+</body>
+
+</html>

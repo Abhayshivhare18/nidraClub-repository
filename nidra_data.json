@@ -1,0 +1,30 @@
+{
+  "userInformation": {
+    "Nidra ID": "DUSO904232",
+    "Name": "karan Soni",
+    "Age": "44",
+    "Phone number": "+91-9585600900",
+    "User E-mail ID": "karan@nidra.club"
+  },
+  "deviceInformation": {
+    "Study ID": "170841",
+    "Device ID": "1604",
+    "Date of Study": "04-04-2025",
+    "Recording Start Time (IST)": "05-04-2025 12:10 AM",
+    "Recording End Time (IST)": "05-04-2025 04:21 AM",
+    "Total Recording Time": "4.19 hours",
+    "Good Signal Duration": "2.12 hours",
+    "Total Breathing Time": "1.51 hours",
+    "Timezone": "Indian Standard Time (IST)"
+  },
+  "nidraSummary": {
+    "sleepScore": 7.5,
+    "HeartScore": 6.8,
+    "BreathingScore": 8.2
+  },
+  "sessionGraph": [
+    {
+      "totalSleepTime": "06:45"
+    }
+  ]
+}

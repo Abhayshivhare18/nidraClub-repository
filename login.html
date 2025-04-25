@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .login-container {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Loader Styles */
+    .loader-container {
+      display: none;
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .loader {
+      width: 30px;
+      height: 30px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #28a745;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-container">
+    <h2>🔐 Login</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Enter Email" required>
+      <input type="password" id="password" placeholder="Enter Password" required>
+      <button type="submit" id="loginButton">Login</button>
+
+      <!-- Loader -->
+      <div class="loader-container" id="loaderContainer">
+        <div class="loader"></div>
+        <p style="font-size: 14px; color: #555;">Authenticating, please wait...</p>
+      </div>
+
+      <p id="errorMessage" class="error"></p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const loginButton = document.getElementById("loginButton");
+      const loaderContainer = document.getElementById("loaderContainer");
+      const errorMessage = document.getElementById("errorMessage");
+
+      // Disable button and show loader
+      loginButton.disabled = true;
+      loaderContainer.style.display = "block";
+      errorMessage.textContent = ""; // Clear previous errors
+
+      try {
+        const response = await fetch("http://localhost:8000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email: email, password: password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("✅ Login successful!");
+          localStorage.setItem("access_token", data.detail.access_token);
+          window.location.href = "dashboard.html";
+        } else {
+          errorMessage.textContent = data.detail || "❌ Login failed!";
+        }
+      } catch (error) {
+        errorMessage.textContent = "⚠️ Error connecting to server!";
+        console.error(error);
+      } finally {
+        // Re-enable button and hide loader
+        loginButton.disabled = false;
+       loaderContainer.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+
+</html>
